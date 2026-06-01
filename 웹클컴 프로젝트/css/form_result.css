@@ -1,0 +1,473 @@
+main {
+  flex: 1;
+  margin-top: 60px;
+  margin-bottom: 0;
+  display: flex;
+}
+
+/* 좌측 section */
+section {
+  width: 400px;
+  flex-shrink: 0;
+  border-right: 1px solid #e8e8e8;
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+.result-top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.result-badge {
+  display: inline-block;
+  background: #f4f4f4;
+  border: 1px solid #e0e0e0;
+  font-size: 13px;
+  color: #555;
+  padding: 4px 14px;
+  width: fit-content;
+}
+.result-title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #191919;
+}
+.score-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+.result-score {
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 1;
+  color: #191919;
+}
+.result-score-unit {
+  font-size: 28px;
+  font-weight: 700;
+  color: #191919;
+  padding-bottom: 10px;
+}
+.divider {
+  height: 1px;
+  background: #e8e8e8;
+}
+
+/* 좌측 하단 버튼 */
+.result-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.btn-outline {
+  padding: 14px;
+  font-size: 14px;
+  color: #888;
+  border: 1.5px solid #e0e0e0;
+  background: #fff;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.btn-black {
+  padding: 14px;
+  font-size: 14px;
+  color: #fff;
+  background: #191919;
+  border: none;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 우측 aside */
+aside {
+  flex: 1;
+  padding: 48px 36px;
+  overflow-y: auto;
+}
+.aside-section-title {
+  font-size: 11px;
+  color: #bbb;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  margin-top: 28px;
+}
+.aside-section-title:first-child {
+  margin-top: 0;
+}
+
+/* 아코디언 */
+.acc-item {
+  border-top: 1px solid #e8e8e8;
+}
+.acc-item:last-child {
+  border-bottom: 1px solid #e8e8e8;
+}
+.acc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  cursor: pointer;
+}
+.acc-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #191919;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.acc-name-c {
+  font-size: 16px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.acc-stars {
+  font-size: 13px;
+  color: #f4a124;
+  letter-spacing: -1px;
+}
+.acc-chev {
+  font-size: 13px;
+  color: #bbb;
+  flex-shrink: 0;
+}
+.acc-body {
+  display: none;
+  padding-bottom: 20px;
+}
+.acc-item.open .acc-body {
+  display: block;
+}
+.acc-desc {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 14px;
+  line-height: 1.7;
+}
+
+/* 칩 */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e0e0e0;
+  padding: 5px 12px;
+  background: #fff;
+  font-size: 12px;
+  color: #555;
+  cursor: pointer;
+  position: relative;
+}
+.chip-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  font-weight: 700;
+  color: #777;
+  flex-shrink: 0;
+}
+.chip-lab {
+  background: #f4f4f4;
+}
+.chip-logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* 툴팁 */
+.tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  background: #333;
+  color: #fff;
+  padding: 7px 10px;
+  white-space: nowrap;
+  z-index: 10;
+  font-size: 11px;
+}
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 14px;
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+.chip:hover .tooltip {
+  display: block;
+}
+.chip.longpress .tooltip {
+  display: block;
+}
+.tooltip-name {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.tooltip-type {
+  color: #ccc;
+}
+
+/* 탭바 (모바일 전용) */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+}
+
+/* 멘토 리포트 (화면에서는 숨김) */
+#mentorReport {
+  display: none;
+}
+
+/* 인쇄 레이아웃 */
+@media print {
+  @page {
+    margin: 15mm;
+  }
+
+  header,
+  .overlay,
+  main,
+  .tab-bar {
+    display: none !important;
+  }
+  #mentorReport {
+    display: block;
+  }
+  body {
+    background: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .rpt-page {
+    width: 100%;
+    padding: 12mm 16mm;
+    page-break-after: always;
+    page-break-inside: avoid;
+    box-sizing: border-box;
+  }
+  .rpt-page:last-child {
+    page-break-after: auto;
+  }
+
+  .rpt-header {
+    border-bottom: 1.5px solid #191919;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+  .rpt-title {
+    font-size: 13pt;
+    font-weight: 700;
+  }
+  .rpt-date {
+    font-size: 9pt;
+    margin-top: 1px;
+  }
+
+  .rpt-section {
+    margin-bottom: 8px;
+    page-break-inside: avoid;
+  }
+  .rpt-section-title {
+    font-size: 9pt;
+    font-weight: 700;
+    border-left: 3px solid #191919;
+    padding-left: 6px;
+    margin-bottom: 5px;
+  }
+
+  .rpt-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .rpt-summary-table td {
+    padding: 2px 6px;
+    vertical-align: middle;
+  }
+  .rpt-badge {
+    display: inline-block;
+    border: 1px solid #333;
+    padding: 1px 8px;
+    font-size: 9pt;
+    font-weight: 700;
+  }
+  .rpt-main-title {
+    font-size: 11pt;
+    font-weight: 700;
+  }
+  .rpt-main-score {
+    font-size: 18pt;
+    font-weight: 700;
+    text-align: right;
+  }
+  .rpt-score-unit {
+    font-size: 10pt;
+  }
+  .rpt-type-desc {
+    font-size: 8pt;
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  .rpt-bar-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .rpt-bar-table td {
+    padding: 1px 5px;
+    font-size: 8pt;
+  }
+  .rpt-field-name {
+    width: 80px;
+    font-weight: 500;
+  }
+  .rpt-bar {
+    font-family: monospace;
+    letter-spacing: 1px;
+  }
+  .rpt-score {
+    width: 36px;
+    text-align: right;
+  }
+  .rpt-bar-note {
+    font-size: 7pt;
+    margin-top: 3px;
+  }
+
+  .rpt-q-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .rpt-q-table td {
+    padding: 1.5px 5px;
+    font-size: 7.5pt;
+    border-bottom: 1px solid #eee;
+  }
+  .rpt-qnum {
+    width: 24px;
+    font-weight: 700;
+  }
+  .rpt-ans {
+    width: 110px;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .rpt-mentor-note {
+    font-size: 7.5pt;
+    padding: 4px 8px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+  .rpt-comment-box {
+    border: 1px solid #ccc;
+    height: 22mm;
+    width: 100%;
+  }
+
+  .rpt-rec-box {
+    border: 1px solid #333;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+  }
+  .rpt-rec-label {
+    font-size: 7.5pt;
+    margin-bottom: 3px;
+  }
+  .rpt-rec-fields {
+    font-size: 11pt;
+    font-weight: 700;
+  }
+
+  .rpt-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .rpt-line {
+    border-bottom: 1px solid #ccc;
+    height: 9mm;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    margin-top: 52px;
+    margin-bottom: 64px;
+    overflow-y: auto;
+  }
+  section {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 28px 20px;
+    overflow-y: visible;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  .result-score {
+    font-size: 64px;
+  }
+  .result-title {
+    font-size: 18px;
+  }
+  .result-btns {
+    display: none;
+  }
+  aside {
+    padding: 24px 20px;
+    overflow-y: visible;
+  }
+  .acc-name,
+  .acc-name-c {
+    font-size: 14px;
+  }
+  .tab-bar {
+    display: flex;
+  }
+  .tab-bar .btn-outline,
+  .tab-bar .btn-black {
+    flex: 1;
+    height: 44px;
+    font-size: 13px;
+  }
+}

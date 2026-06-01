@@ -1,0 +1,163 @@
+main {
+  flex: 1;
+  margin-top: 60px;
+  margin-bottom: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+.quiz-inner {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 세그먼트 진행바 */
+.seg-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.seg-bar {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+.seg {
+  flex: 1;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+}
+.seg.done {
+  background: #191919;
+}
+.seg.current {
+  background: #555;
+}
+.seg-label {
+  font-size: 13px;
+  color: #bbb;
+  white-space: nowrap;
+}
+
+/* 질문 */
+.q-text {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* 선택지 */
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.choice-btn {
+  width: 100%;
+  padding: 18px 22px;
+  text-align: left;
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  font-size: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #555;
+  cursor: pointer;
+}
+.choice-btn.selected {
+  border: 2px solid #191919;
+  color: #191919;
+  font-weight: 500;
+}
+
+/* 경고 */
+.warning {
+  font-size: 14px;
+  color: #e74c3c;
+  text-align: center;
+  opacity: 0;
+}
+.warning.show {
+  opacity: 1;
+  animation: shake 0.4s ease;
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+/* 탭바 */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 48px;
+}
+.btn-sec {
+  width: 200px;
+  height: 46px;
+  border: 1.5px solid #e0e0e0;
+  background: #fff;
+  font-size: 14px;
+  color: #888;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+}
+.btn-pri {
+  width: 200px;
+  height: 46px;
+  background: #191919;
+  border: none;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  main {
+    margin-top: 52px;
+    margin-bottom: 64px;
+    padding: 28px 20px;
+    align-items: flex-start;
+  }
+  .q-text {
+    font-size: 20px;
+  }
+  .choice-btn {
+    font-size: 14px;
+    padding: 16px 18px;
+  }
+  .tab-bar {
+    height: 64px;
+    padding: 0 16px;
+  }
+  .btn-sec,
+  .btn-pri {
+    flex: 1;
+    width: auto;
+    height: 44px;
+    font-size: 13px;
+  }
+}
