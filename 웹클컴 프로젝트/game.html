@@ -5,33 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>디버깅 타임어택: 나방을 잡아라!</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./css/game.css">
 </head>
 <body>
 
-    <!-- ===================== 헤더 / 네비게이션 (페이지 공통) ===================== -->
     <header class="site-header">
-        <a class="site-logo" href="./index.html">LOGO</a>
+        <a class="site-logo" href="./index.html"><span class="site-logo__accent">Major</span>Fair</a>
 
-        <!-- PC: 텍스트 메뉴 -->
         <nav class="nav-links" aria-label="주 메뉴">
-            <!-- ★변경①: PC에도 '메인' 추가 (모바일 메뉴와 동일하게 ./index.html로 이동) -->
             <a class="nav-link" href="./index.html">메인</a>
             <a class="nav-link" href="./team.html">팀소개</a>
             <a class="nav-link nav-link--active" href="./game.html" aria-current="page">게임</a>
             <a class="nav-link" href="./form.html">폼</a>
         </nav>
 
-        <!-- 모바일: 햄버거 버튼 -->
         <button class="nav-toggle" id="navToggle" type="button"
                 aria-label="메뉴 열기" aria-controls="mobileMenu" aria-expanded="false">☰</button>
     </header>
 
-    <!-- 모바일 사이드 메뉴 + 배경 오버레이 -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay" hidden></div>
     <aside class="mobile-menu" id="mobileMenu" aria-hidden="true" aria-label="모바일 메뉴">
         <button class="mobile-menu__close" id="mobileMenuClose" type="button" aria-label="메뉴 닫기">&times;</button>
@@ -43,26 +39,18 @@
         </nav>
     </aside>
 
-    <!-- ===================== 메인 ===================== -->
     <main class="container">
         <h1 class="page-title" id="gameTitle">디버깅 타임어택: 나방을 잡아라!</h1>
 
-        <!-- 게임 조작 버튼 -->
         <div class="game-controls">
             <button class="btn btn-primary" id="startBtn" type="button">게임 시작</button>
-            <!-- ★변경②: 기존 '초기화' 버튼을 게임 모드 토글로 변경.
-                 누르면 라벨이 현재 모드명으로 바뀝니다(버그 잡기 ⇄ 버그 피하기).
-                 (단독 초기화는 결과 모달의 '돌아가기'가 담당) -->
             <button class="btn btn-secondary mode-toggle" id="modeToggleBtn" type="button"
                     aria-label="게임 모드 전환 (현재: 버그 잡기)">버그 잡기</button>
         </div>
 
-        <!-- 게임 영역: 캔버스 + 점수 보드 -->
         <section class="game-area" aria-label="게임 영역">
-            <!-- 게임 캔버스 (나방이 출현하는 공간) -->
             <div class="game-canvas" id="gameCanvas"></div>
 
-            <!-- 점수 보드 (PC: 우측 사이드바 / 모바일: 상단 위젯 — 배치는 CSS 담당) -->
             <aside class="score-board" aria-label="점수 현황">
                 <div class="score-item">
                     <div class="score-label">최고 점수</div>
@@ -73,17 +61,14 @@
                     <div class="score-value" id="currentScore">0</div>
                 </div>
                 <div class="score-item">
-                    <!-- ★변경③: 모드별로 '남은 시간'(잡기) / '생존 시간'(피하기) 교체 -->
                     <div class="score-label" id="timeLabel">남은 시간</div>
                     <div class="time-value" id="timeLeft">30</div>
                 </div>
             </aside>
         </section>
 
-        <!-- 게임 방법 안내 -->
         <section class="game-info" aria-label="게임 방법">
             <h2 class="info-title">게임 방법</h2>
-            <!-- ★변경④: 모드별 게임 설명을 JS가 교체하도록 id 부여 -->
             <div class="info-content" id="gameInfo">
                 <ul>
                     <li>제한 시간 안에 나타나는 나방(버그)을 클릭해서 잡으세요!</li>
@@ -95,7 +80,6 @@
         </section>
     </main>
 
-    <!-- ===================== 결과 모달 ===================== -->
     <div class="modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content">
             <span class="result-badge" id="resultBadge"></span>
@@ -109,12 +93,10 @@
         </div>
     </div>
 
-     <!-- ===================== 푸터 ===================== -->
     <footer class="site-footer">
         <p>FOOTER</p>
     </footer>
 
-    <!-- 게임 로직 -->
     <script src="./js/game.js"></script>
 </body>
 </html>
