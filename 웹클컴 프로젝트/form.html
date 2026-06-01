@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개발자 적합도 검사</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/form.css" />
+  </head>
+  <body>
+    <header>
+      <a href="form.html" class="logo">LOGO</a>
+      <nav>
+        <a href="#">팀소개</a>
+        <a href="#">게임</a>
+        <a href="form.html" class="active">폼</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <div class="overlay" id="overlay">
+      <div class="sidebar">
+        <button class="sidebar-close" id="closeBtn">✕</button>
+        <nav>
+          <a href="#">메인</a>
+          <a href="#">팀소개</a>
+          <a href="#">게임</a>
+          <a href="form.html" class="active">폼</a>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <div class="quiz-inner">
+        <div class="seg-wrap">
+          <div class="seg-bar" id="segBar"></div>
+          <span class="seg-label" id="segLabel"></span>
+        </div>
+        <div class="q-text" id="qText"></div>
+        <div class="choices" id="choices"></div>
+        <div class="warning" id="warning">⚠ 선택지를 골라주세요!</div>
+      </div>
+    </main>
+
+    <div class="tab-bar">
+      <button class="btn-sec" id="prevBtn">← 이전</button>
+      <button class="btn-pri" id="nextBtn">다음 →</button>
+    </div>
+
+    <script src="js/form.js" defer></script>
+  </body>
+</html>

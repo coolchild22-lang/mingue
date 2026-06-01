@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>결과 — 개발자 적합도 검사</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/form_result.css" />
+  </head>
+  <body>
+    <header>
+      <a href="form.html" class="logo">LOGO</a>
+      <nav>
+        <a href="#">팀소개</a>
+        <a href="#">게임</a>
+        <a href="form.html" class="active">폼</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <div class="overlay" id="overlay">
+      <div class="sidebar">
+        <button class="sidebar-close" id="closeBtn">✕</button>
+        <nav>
+          <a href="#">메인</a>
+          <a href="#">팀소개</a>
+          <a href="#">게임</a>
+          <a href="form.html" class="active">폼</a>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <section>
+        <div class="result-top">
+          <span class="result-badge" id="resultBadge"></span>
+          <div class="result-title" id="resultTitle"></div>
+          <div class="score-wrap">
+            <div class="result-score" id="resultScore">0</div>
+            <div class="result-score-unit">점</div>
+          </div>
+          <div class="divider"></div>
+          <div
+            id="resultDesc"
+            style="font-size: 15px; color: #444; line-height: 1.8"
+          ></div>
+        </div>
+        <div class="result-btns">
+          <div class="divider"></div>
+          <div class="btn-row">
+            <button class="btn-outline" id="retryBtn">다시 검사하기</button>
+            <button class="btn-black" id="captureBtn">캡처하기</button>
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="aside-section-title">추천 분야</div>
+        <div id="recList"></div>
+        <div class="aside-section-title">이런 분야도 있어요</div>
+        <div id="otherList"></div>
+      </aside>
+    </main>
+
+    <!-- 모바일 탭바 -->
+    <div class="tab-bar">
+      <button class="btn-outline" id="retryBtnMob">다시 검사하기</button>
+      <button class="btn-black" id="captureBtnMob">캡처하기</button>
+    </div>
+
+    <!-- 멘토 리포트: 화면에서는 숨기고 인쇄 시에만 표시 -->
+    <div id="mentorReport"></div>
+
+    <script src="js/form_result.js" defer></script>
+  </body>
+</html>
