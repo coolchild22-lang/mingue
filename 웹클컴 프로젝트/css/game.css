@@ -1,0 +1,627 @@
+/* =============================================================================
+ * game.css  —  게임 페이지 CSS
+ * 담당자 : 정원우
+ *
+ *  이 파일은 두 영역으로 나뉘어 있습니다.
+ *
+ *  ┌ [영역 1] 디자인 · 레이아웃  (없어도 게임은 "동작"합니다) ─────────────────┐
+ *  │  헤더 / 네비 / 버튼 / 점수보드 외형 / 모달 외형 / 반응형 등.              │
+ *  │  자유롭게 수정하거나 style.css에서 덮어써도 됩니다.                       │
+ *  │  단, [JS필수] 로 표시된 속성/규칙은 JS 동작에 필요하니 지우지 마세요.      │
+ *  └────────────────────────────────────────────────────────────────────────┘
+ *
+ *  ┌ [영역 2] 게임을 위한 필수 CSS  (수정 시 게임이 깨질 수 있음) ─────────────┐
+ *  │  파일 하단 "아래 CSS는 게임에 영향을 주는 부분임으로..." 주석 아래.        │
+ *  │  캔버스(좌표 기준)·나방/버그 절대배치·플레이어·JS가 켜는 애니메이션 등.     │
+ *  └────────────────────────────────────────────────────────────────────────┘
+ *
+ *  ※ 색상 등 공통 값은 아래 :root 변수에 모았습니다. 톤을 바꾸려면
+ *    개별 규칙이 아니라 :root의 변수 값만 수정하면 전체에 반영됩니다.
+ * ========================================================================== */
+
+/* =============================================================================
+ * CSS 변수 (공통 값 모음)
+ *   - 아래 변수 블록도 "게임 영향 없음 / 게임 영향 있음" 으로 상하 구분했습니다.
+ * ========================================================================== */
+:root {
+    /* ───────── [변수 · 게임 영향 없음] 페이지 디자인 톤 — 자유롭게 수정 ─────────
+       헤더 / 버튼 / 점수보드 외형 / 모달 / 푸터 등 공통 색·간격.
+       값만 바꾸면 페이지 전체 톤이 한 번에 바뀝니다. */
+    --color-bg: #f5f5f5;             /* 페이지 배경 */
+    --color-surface: #fff;           /* 카드/패널 배경(헤더·게임영역·모달 등) */
+    --color-surface-alt: #f9f9f9;    /* 보조 배경(점수보드·푸터) */
+    --color-ink: #333;               /* 기본 텍스트 · 진한 테두리 · primary 버튼 */
+    --color-ink-soft: #666;          /* 보조 텍스트(라벨 등) */
+    --color-ink-softer: #555;        /* 링크/본문 보조 텍스트 */
+    --color-line: #e0e0e0;           /* 옅은 구분선 */
+    --color-badge-bg: #eee;          /* 결과 뱃지 배경 */
+
+    --btn-primary-bg: #333;          /* primary 버튼 배경 */
+    --btn-primary-bg-hover: #555;    /* primary 버튼 hover */
+    --btn-secondary-bg: #e0e0e0;     /* secondary(토글) 버튼 배경 */
+    --btn-secondary-bg-hover: #d0d0d0;
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);   /* 헤더 그림자 */
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);   /* 카드 그림자 */
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.3); /* 모달 그림자 */
+    --shadow-menu: -4px 0 12px rgba(0, 0, 0, 0.15); /* 모바일 메뉴 그림자 */
+    --overlay-dim: rgba(0, 0, 0, 0.4);   /* 모바일 메뉴 배경 딤 */
+    --modal-dim: rgba(0, 0, 0, 0.7);     /* 결과 모달 배경 딤 */
+
+    --radius: 4px;                   /* 공통 모서리 둥글기 */
+    --radius-lg: 8px;                /* 큰 패널 모서리 */
+    --border-strong: 3px solid var(--color-ink);  /* 굵은 외곽선(게임영역·안내) */
+    --border-base: 2px solid var(--color-ink);    /* 기본 외곽선 */
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       ↓↓↓ 아래 변수는 게임에 영향을 주는 부분임으로 수정하지 말아주세요! ↓↓↓
+       (버그/플레이어/캔버스의 색. 게임 플레이 요소의 시인성·피드백과 직결!!!!
+        톤 조정이 꼭 필요하면 색 '값'만 바꾸고, 변수 이름/구조는 유지되어야 합니다.)
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    --canvas-bg-from: #f0f4ff;       /* 캔버스 그라데이션 시작색 */
+    --canvas-bg-to: #fff;            /* 캔버스 그라데이션 끝색 */
+    --canvas-border: #ccc;           /* 캔버스 테두리 */
+
+    --bug-color: #ff6b6b;            /* 나방/버그 본체 색 */
+    --bug-glow: rgba(255, 107, 107, 0.4);   /* 버그 그림자 */
+    --bug-glow-hover: rgba(255, 107, 107, 0.6);
+    --bug-caught: #4caf50;           /* 잡았을 때(clicked) 색 */
+    --score-popup-color: #2e7d32;    /* "+점수" 플로팅 색 */
+
+    --player-bg: #e8f0ff;            /* 플레이어 배경 */
+    --player-ring: #4361ee;          /* 플레이어 외곽 링 */
+    --player-glow: rgba(67, 97, 238, 0.35);  /* 플레이어 그림자 */
+
+    --time-accent: #ff6b6b;          /* 남은/생존 시간 강조색 (게임 강조 톤과 통일) */
+}
+
+/* ===================== 공통 리셋 / 기본 ===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+}
+
+
+/* ##########################################################################
+ * # [영역 1] 디자인 · 레이아웃  —  자유롭게 수정 가능
+ * #          (단, [JS필수] 표시 속성은 동작에 필요하므로 유지)
+ * ########################################################################## */
+
+/* ===================== 헤더 / 네비게이션 ===================== */
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   /* 로고 왼쪽 · 메뉴 오른쪽 (와이어프레임 기준) */
+    gap: 20px;
+    padding: 20px 40px;
+    background-color: var(--color-surface);
+    border-bottom: var(--border-base);
+    box-shadow: var(--shadow-sm);
+}
+
+.site-logo {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--color-ink);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    font-size: 14px;
+}
+
+.nav-link {
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--color-ink);
+}
+
+.nav-link--active {
+    color: var(--color-ink);
+    font-weight: 700;
+}
+
+/* 햄버거 버튼 (모바일에서만 노출) */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-ink);
+}
+
+/* ===================== 모바일 사이드 메뉴 ===================== */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 70%;
+    max-width: 280px;
+    z-index: 1100;
+    padding: 20px;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-menu);
+    transform: translateX(100%);      /* [JS필수] 평소엔 화면 밖으로 숨김 */
+    transition: transform 0.25s ease; /* [JS필수] 슬라이드 인/아웃 */
+}
+
+.mobile-menu.is-open {
+    transform: translateX(0);         /* [JS필수] JS가 .is-open 토글로 열고 닫음 */
+}
+
+.mobile-menu__close {
+    display: block;
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-ink);
+}
+
+.mobile-menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 30px;
+    font-size: 16px;
+}
+
+.mobile-menu__link {
+    color: var(--color-ink-softer);
+    text-decoration: none;
+}
+
+.mobile-menu__link--active {
+    color: var(--color-ink);
+    font-weight: 700;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    background-color: var(--overlay-dim);
+}
+
+.mobile-menu-overlay[hidden] {
+    display: none;                    /* [JS필수] JS가 hidden 속성으로 표시/숨김 */
+}
+
+/* ===================== 메인 컨테이너 ===================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+/* ===================== 게임 조작 버튼 ===================== */
+.game-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    flex: 1;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--btn-primary-bg);
+    color: var(--color-surface);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--btn-primary-bg-hover);
+}
+
+.btn-secondary {
+    background-color: var(--btn-secondary-bg);
+    color: var(--color-ink);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: var(--btn-secondary-bg-hover);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ===================== 게임 영역 레이아웃 (캔버스 + 점수보드) ===================== */
+.game-area {
+    display: grid;
+    /* 사이드바를 고정폭이 아니라 화면 크기에 따라 함께 축소(캔버스 1fr과 같이 줄어듦) */
+    grid-template-columns: minmax(0, 1fr) clamp(190px, 26%, 300px);
+    gap: 30px;
+    padding: 30px;
+    background-color: var(--color-surface);
+    border: var(--border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 30px;
+}
+
+/* ===================== 점수 보드 (외형) ===================== */
+.score-board {
+    /* 내부 항목이 위로 치우치지 않도록 세로 가운데 정렬 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: var(--color-surface-alt);
+    border: var(--border-base);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.score-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.score-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.score-label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-ink-soft);
+}
+
+.score-value {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--color-ink);
+}
+
+.time-value {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--time-accent);       /* 시간 강조 */
+}
+
+/* ===================== 게임 방법 안내 ===================== */
+.game-info {
+    padding: 30px;
+    background-color: var(--color-surface);
+    border: var(--border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.info-title {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border-bottom: var(--border-base);
+}
+
+.info-content {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--color-ink-softer);
+}
+
+.info-content ul {
+    list-style: none;
+}
+
+.info-content li {
+    position: relative;
+    margin-bottom: 12px;
+    padding-left: 25px;
+}
+
+.info-content li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: var(--color-ink);
+}
+
+/* ===================== 결과 모달 (외형) ===================== */
+.modal {
+    display: none;                    /* [JS필수] 평소 숨김 */
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--modal-dim);
+}
+
+.modal.active {
+    display: flex;                    /* [JS필수] JS가 .active 토글로 결과 표시 */
+}
+
+.modal-content {
+    max-width: 500px;
+    padding: 40px;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: modal-slide-in 0.3s ease-out;
+}
+
+@keyframes modal-slide-in {
+    from { transform: translateY(-50px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
+/* 결과 유형 뱃지 (예: "성장형 개발자") */
+.result-badge {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-ink-softer);
+    background-color: var(--color-badge-bg);
+    border-radius: 999px;
+}
+
+.result-badge:empty {
+    display: none;
+}
+
+.modal-title {
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.modal-score {
+    margin: 20px 0;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--time-accent);
+}
+
+.modal-message {
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.modal-buttons .btn {
+    flex: 1;
+}
+
+/* ===================== 푸터 ===================== */
+.site-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-ink-soft);
+    background-color: var(--color-surface-alt);
+    border-top: var(--border-base);
+}
+
+/* ===================== 반응형 (레이아웃) ===================== */
+/* 태블릿/모바일: 햄버거 노출, 2단 → 단일 레이아웃, 점수보드는 상단 위젯 */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-toggle {
+        display: inline-block;        /* [JS필수] 모바일에서 햄버거(메뉴 열기) 노출 */
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .game-area {
+        display: flex;
+        flex-direction: column;       /* 단일 레이아웃 */
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .score-board {
+        order: -1;                    /* 점수보드를 캔버스 위(상단 위젯)로 */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .score-item {
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    .score-value,
+    .time-value {
+        font-size: 24px;
+    }
+
+    .game-info {
+        padding: 20px;
+    }
+}
+
+/* 초소형 화면 */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 15px;
+    }
+
+    .btn {
+        padding: 12px 10px;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+
+    .bug {
+        width: 35px;                  /* 작은 화면에서 나방/버그 크기 축소 (JS가 실제 크기를 측정) */
+        height: 35px;
+        font-size: 20px;
+    }
+
+    .modal-content {
+        max-width: 90%;
+        padding: 30px 20px;
+    }
+}
+
+
+/* ##########################################################################
+ * #
+ * #   ↓↓↓  아래 CSS는 게임에 영향을 주는 부분임으로 수정하지 말아주세요!  ↓↓↓
+ * #
+ * #   - 위치(position/left/top), 크기(width/height): JS가 좌표·충돌 계산에 사용
+ * #   - @keyframes 및 .clicked 등: JS가 클래스를 토글해 재생하는 애니메이션
+ * #   - 색상은 위 :root 변수(게임 영향 영역)에서만 조정하세요.
+ * #
+ * ########################################################################## */
+
+/* 게임 캔버스 (나방/버그/플레이어가 움직이는 공간) */
+.game-canvas {
+    position: relative;             /* [필수] 내부 요소(나방/버그/플레이어) 절대배치 기준 */
+    overflow: hidden;               /* [필수] 캔버스 밖으로 나가지 않도록 클리핑 */
+    width: 100%;                    /* [필수] 좌표 계산용 크기 */
+    aspect-ratio: 16 / 9;           /* [필수] 좌표 계산용 크기 */
+    min-height: 240px;              /* [필수] 높이가 0이 되면 게임이 동작하지 않음 */
+    background: linear-gradient(135deg, var(--canvas-bg-from) 0%, var(--canvas-bg-to) 100%);
+    border: 2px solid var(--canvas-border);
+    border-radius: var(--radius);
+    cursor: crosshair;
+}
+
+/* 버그 피하기(방향키 모드)에서는 클릭이 아니므로 기본 커서 */
+.game-canvas.is-dodge {
+    cursor: default;                /* JS가 .is-dodge 토글 */
+}
+
+/* 나방 / 버그 (잡기·피하기 공용 비주얼) */
+.bug {
+    position: absolute;             /* [필수] JS가 left/top으로 위치 지정 */
+    width: 40px;                    /* [필수] JS가 크기를 측정해 좌표 범위·충돌 계산 */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    background-color: var(--bug-color);
+    box-shadow: 0 2px 8px var(--bug-glow);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.bug:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px var(--bug-glow-hover);
+}
+
+/* 버그 피하기에서 날아다니는 버그: 클릭/호버 대상이 아님 (충돌은 JS가 계산) */
+.bug--danmaku {
+    pointer-events: none;           /* [필수] 마우스 간섭/호버 방지 */
+    cursor: default;
+}
+
+/* [필수] 잡았을 때 pop 애니메이션 후 사라짐 (JS가 .clicked 부여) */
+.bug.clicked {
+    pointer-events: none;
+    background-color: var(--bug-caught);
+    animation: bug-pop 0.3s ease-out forwards;
+}
+
+@keyframes bug-pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.3); }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+/* 플레이어 (버그 피하기에서 방향키로 조종하는 캐릭터) */
+.player {
+    position: absolute;             /* [필수] JS가 left/top으로 이동 */
+    width: 40px;                    /* [필수] JS가 크기를 측정해 이동/충돌 계산 */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;           /* [필수] 마우스 간섭 방지 */
+    z-index: 5;                     /* 버그 위에 보이도록 */
+    border-radius: 50%;
+    background-color: var(--player-bg);
+    box-shadow: 0 0 0 2px var(--player-ring), 0 2px 8px var(--player-glow);
+}
+
+/* "+점수" 플로팅 피드백 (나방을 잡았을 때 JS가 생성) */
+.score-popup {
+    position: absolute;             /* [필수] JS가 위치 지정 */
+    pointer-events: none;
+    user-select: none;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--score-popup-color);
+    animation: score-float 0.6s ease-out forwards;
+}
+
+@keyframes score-float {
+    0%   { transform: translateY(0);     opacity: 1; }
+    100% { transform: translateY(-30px); opacity: 0; }
+}
