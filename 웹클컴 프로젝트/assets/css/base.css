@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'KMU';
+  src: url('../font/KMU-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KMU';
+  src: url('../font/KMU-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KMU';
+  src: url('../font/KMU-Bold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KMU';
+  src: url('../font/KMU-Bold.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-bg: #1e1e1e;
+  --color-sidebar: #252526;
+  --color-surface: #2d2d30;
+  --color-surface-muted: #252526;
+  --color-editor: #1e1e1e;
+  --color-text: #d4d4d4;
+  --color-text-strong: #ffffff;
+  --color-text-muted: #9da5b4;
+  --color-line: #3c3c3c;
+  --color-line-strong: #5f6a7a;
+  --color-primary: #007acc;
+  --color-primary-hover: #0e8fe3;
+  --color-primary-soft: rgba(0, 122, 204, 0.16);
+  --color-accent: #4ec9b0;
+  --color-warning: #dcdcaa;
+  --color-danger: #f48771;
+  --shadow-panel: 0 18px 48px rgba(0, 0, 0, 0.28);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --header-height: 60px;
+  --font-base: 'KMU', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-base);
+  background: var(--color-bg);
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(0, 122, 204, 0.45);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 52px;
+  }
+
+}

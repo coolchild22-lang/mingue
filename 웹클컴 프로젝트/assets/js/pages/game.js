@@ -3,12 +3,11 @@
  * 담당자 : 정원우
  *
  * 구조
- *   1) NavController  : 헤더 / 모바일 사이드 메뉴 (페이지 공통 셸)
- *   2) GameEngine     : 게임 공통 엔진 — 루프 / 타이머 / 점수 / 결과 / 최고점수
- *   3) MothCatchGame  : 나방 잡기 (버그 잡기)        ※ "게임 모듈 규약" 구현
- *   4) DodgeBulletGame: 버그 피하기 (방향키 탄막)     ※ "게임 모듈 규약" 구현
- *   5) GAME_REGISTRY  : 미니게임 등록소
- *   6) 부팅
+ *   1) GameEngine     : 게임 공통 엔진 — 루프 / 타이머 / 점수 / 결과 / 최고점수
+ *   2) MothCatchGame  : 나방 잡기 (버그 잡기)        ※ "게임 모듈 규약" 구현
+ *   3) DodgeBulletGame: 버그 피하기 (방향키 탄막)     ※ "게임 모듈 규약" 구현
+ *   4) GAME_REGISTRY  : 미니게임 등록소
+ *   5) 부팅
  *
  * ── 게임 모듈 규약(interface) ──────────────────────────────────────────────
  *   {
@@ -22,7 +21,9 @@
  *     start(api)                          // 게임 시작
  *     update(dtMs, api)                   // 매 프레임 호출 (dtMs: 직전 프레임 경과 ms)
  *     teardown(api)                       // 정리 (캔버스/리스너/타이머 제거)
- *     onPointerDown(x, y, e, api)  [선택] // 캔버스 클릭/터치 좌표 전달
+ *     onPointerDown(x, y, e, api)  [선택] // 캔버스 클릭/터치 시작 좌표 전달
+ *     onPointerMove(x, y, e, api)  [선택] // 캔버스 드래그 좌표 전달
+ *     onPointerUp(x, y, e, api)    [선택] // 캔버스 클릭/터치 종료 좌표 전달
  *     onKeyDown(e, api)            [선택] // 키 입력 (예: 방향키 게임)
  *     onKeyUp(e, api)              [선택]
  *     getResult(score)            [선택]  // 결과 뱃지/멘트 커스터마이즈
@@ -40,53 +41,7 @@
 
 
 /* =============================================================================
- * 1) NavController — 헤더 / 모바일 사이드 메뉴   (변경 없음)
- * ========================================================================== */
-const NavController = (() => {
-  let toggleBtn, menu, overlay, closeBtn;
-
-  function open() {
-    if (!menu) return;
-    menu.classList.add('is-open');
-    menu.setAttribute('aria-hidden', 'false');
-    if (overlay) overlay.hidden = false;
-    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
-    document.addEventListener('keydown', onKeydown);
-  }
-
-  function close() {
-    if (!menu) return;
-    menu.classList.remove('is-open');
-    menu.setAttribute('aria-hidden', 'true');
-    if (overlay) overlay.hidden = true;
-    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
-    document.removeEventListener('keydown', onKeydown);
-  }
-
-  function onKeydown(e) {
-    if (e.key === 'Escape') close();
-  }
-
-  function init() {
-    toggleBtn = document.getElementById('navToggle');
-    menu      = document.getElementById('mobileMenu');
-    overlay   = document.getElementById('mobileMenuOverlay');
-    closeBtn  = document.getElementById('mobileMenuClose');
-
-    if (toggleBtn) toggleBtn.addEventListener('click', open);
-    if (closeBtn)  closeBtn.addEventListener('click', close);
-    if (overlay)   overlay.addEventListener('click', close);
-    if (menu) {
-      menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
-    }
-  }
-
-  return { init, open, close };
-})();
-
-
-/* =============================================================================
- * 2) GameEngine — 게임 공통 엔진
+ * 1) GameEngine — 게임 공통 엔진
  *    어떤 미니게임이든 동일한 루프/타이머/점수/결과/최고점수 처리를 제공한다.
  * ========================================================================== */
 const GameEngine = (() => {
@@ -325,12 +280,32 @@ const GameEngine = (() => {
     if (dom.restartBtn) dom.restartBtn.addEventListener('click', () => { reset(); start(); });
     if (dom.homeBtn)    dom.homeBtn.addEventListener('click', reset);   // 시작 화면으로 복귀(초기화)
 
-    // 캔버스 클릭/터치 → 활성 게임으로 좌표 전달
+    // 캔버스 클릭/터치/드래그 → 활성 게임으로 좌표 전달
     if (dom.canvas) {
+      const getCanvasPoint = (e) => {
+        const rect = dom.canvas.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      };
+
       dom.canvas.addEventListener('pointerdown', (e) => {
         if (!state.running || !activeGame || typeof activeGame.onPointerDown !== 'function') return;
-        const rect = dom.canvas.getBoundingClientRect();
-        activeGame.onPointerDown(e.clientX - rect.left, e.clientY - rect.top, e, api);
+        const point = getCanvasPoint(e);
+        activeGame.onPointerDown(point.x, point.y, e, api);
+      });
+      dom.canvas.addEventListener('pointermove', (e) => {
+        if (!state.running || !activeGame || typeof activeGame.onPointerMove !== 'function') return;
+        const point = getCanvasPoint(e);
+        activeGame.onPointerMove(point.x, point.y, e, api);
+      });
+      dom.canvas.addEventListener('pointerup', (e) => {
+        if (!activeGame || typeof activeGame.onPointerUp !== 'function') return;
+        const point = getCanvasPoint(e);
+        activeGame.onPointerUp(point.x, point.y, e, api);
+      });
+      dom.canvas.addEventListener('pointerleave', (e) => {
+        if (!activeGame || typeof activeGame.onPointerUp !== 'function') return;
+        const point = getCanvasPoint(e);
+        activeGame.onPointerUp(point.x, point.y, e, api);
       });
     }
     // 키 입력 → 활성 게임으로 전달 (방향키 게임 등)
@@ -514,7 +489,7 @@ const DodgeBulletGame = {
   timeLabel: '생존 시간',
   infoHTML: `
       <ul>
-        <li>사방에서 날아오는 버그를 <strong>방향키(↑ ↓ ← →)</strong>로 피하세요!</li>
+        <li>사방에서 날아오는 버그를 PC에서는 <strong>방향키(↑ ↓ ← →)</strong>, 모바일에서는 <strong>캐릭터 드래그</strong>로 피하세요!</li>
         <li>버그는 발사되는 순간 당신의 위치를 향해 직선으로 날아옵니다.</li>
         <li>오래 버틸수록 점수가 빨라집니다 (초당 20점 → 최대 40점).</li>
         <li>버그에 닿으면 게임 종료! 최고 생존 점수에 도전하세요.</li>
@@ -544,6 +519,9 @@ const DodgeBulletGame = {
   _spawnInterval: 0,
   _survival: 0,                  // 생존 시간(초, 실수)
   _scoreAcc: 0,                  // 점수 누적(실수 → 정수만 가산)
+  _dragging: false,
+  _dragOffsetX: 0,
+  _dragOffsetY: 0,
 
   setup(api) {},
 
@@ -555,6 +533,9 @@ const DodgeBulletGame = {
     this._spawnTimer = 600;        // 시작 직후 약간의 유예
     this._survival = 0;
     this._scoreAcc = 0;
+    this._dragging = false;
+    this._dragOffsetX = 0;
+    this._dragOffsetY = 0;
 
     if (canvas) canvas.classList.add('is-dodge');   // 커서 등 모드 표시
 
@@ -593,7 +574,7 @@ const DodgeBulletGame = {
     const whole = Math.floor(this._scoreAcc);
     if (whole > 0) { api.addScore(whole); this._scoreAcc -= whole; }
 
-    // (2) 플레이어 이동 (방향키)
+    // (2) 플레이어 이동 (방향키 또는 모바일 드래그)
     let dx = (this._keys.right ? 1 : 0) - (this._keys.left ? 1 : 0);
     let dy = (this._keys.down ? 1 : 0) - (this._keys.up ? 1 : 0);
     if (dx && dy) { const inv = Math.SQRT1_2; dx *= inv; dy *= inv; }  // 대각선 보정
@@ -695,6 +676,46 @@ const DodgeBulletGame = {
     if (!k) return;
     this._keys[k] = false;
   },
+  onPointerDown(x, y, e, api) {
+    if (!this._player || !api.canvas) return;
+
+    const centerX = this._player.x + this._player.size / 2;
+    const centerY = this._player.y + this._player.size / 2;
+    const grabRadius = this._player.size * 1.2;
+    const dist = Math.hypot(x - centerX, y - centerY);
+    if (dist > grabRadius) return;
+
+    e.preventDefault();
+    this._dragging = true;
+    this._dragOffsetX = x - this._player.x;
+    this._dragOffsetY = y - this._player.y;
+    if (api.canvas.setPointerCapture && e.pointerId != null) {
+      api.canvas.setPointerCapture(e.pointerId);
+    }
+  },
+  onPointerMove(x, y, e, api) {
+    if (!this._dragging || !this._player || !api.canvas) return;
+    e.preventDefault();
+    this._setPlayerPosition(x - this._dragOffsetX, y - this._dragOffsetY, api.canvas);
+  },
+  onPointerUp(x, y, e, api) {
+    if (!this._dragging) return;
+    this._dragging = false;
+    if (api.canvas && api.canvas.releasePointerCapture && e.pointerId != null) {
+      try { api.canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+    }
+  },
+  _setPlayerPosition(x, y, canvas) {
+    if (!this._player || !canvas) return;
+    const maxX = Math.max(0, canvas.clientWidth - this._player.size);
+    const maxY = Math.max(0, canvas.clientHeight - this._player.size);
+    const px = Math.max(0, Math.min(x, maxX));
+    const py = Math.max(0, Math.min(y, maxY));
+    this._player.x = px;
+    this._player.y = py;
+    this._player.el.style.left = px + 'px';
+    this._player.el.style.top = py + 'px';
+  },
   _mapKey(key) {
     switch (key) {
       case 'ArrowUp':    return 'up';
@@ -711,6 +732,7 @@ const DodgeBulletGame = {
     if (this._player && this._player.el && this._player.el.parentNode) this._player.el.remove();
     this._player = null;
     this._keys = { up: false, down: false, left: false, right: false };
+    this._dragging = false;
     if (api.canvas) api.canvas.classList.remove('is-dodge');
   },
 
@@ -729,7 +751,7 @@ const DodgeBulletGame = {
 
 
 /* =============================================================================
- * 5) GAME_REGISTRY — 미니게임 등록소
+ * 4) GAME_REGISTRY — 미니게임 등록소
  *    토글 버튼은 이 등록 순서대로 순환 전환됩니다.
  * ========================================================================== */
 const GAME_REGISTRY = {
@@ -740,10 +762,9 @@ const DEFAULT_GAME_ID = MothCatchGame.id;
 
 
 /* =============================================================================
- * 6) 부팅
+ * 5) 부팅
  * ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-  NavController.init();
   GameEngine.init();
   GameEngine.loadGame(DEFAULT_GAME_ID);
 

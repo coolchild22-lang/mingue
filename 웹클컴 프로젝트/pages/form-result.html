@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>결과 — 개발자 적합도 검사</title>
+    <link rel="icon" type="image/png" href="../assets/logo/symbol_color_transparent.png" />
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/components.css" />
+    <link rel="stylesheet" href="../assets/css/pages/form-result.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="main.html" class="site-logo" aria-label="MajorFair 홈">
+        <img class="site-logo__image" src="../assets/logo/symbol_color_transparent.png" alt="" />
+        <span class="site-logo__text">KMUCS MajorFair</span>
+      </a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a class="site-nav__link" href="main.html">메인</a>
+        <a class="site-nav__link" href="team.html">팀 소개</a>
+        <a class="site-nav__link" href="curriculum.html">커리큘럼</a>
+        <a class="site-nav__link" href="game.html">게임</a>
+        <a class="site-nav__link is-active" href="form.html">적성검사</a>
+      </nav>
+      <button class="site-nav-toggle" id="navToggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" hidden>
+      <div class="mobile-menu">
+        <button class="mobile-menu__close" id="mobileMenuClose" type="button" aria-label="메뉴 닫기">✕</button>
+        <nav class="mobile-menu__nav">
+          <a class="mobile-menu__link" href="main.html">메인</a>
+          <a class="mobile-menu__link" href="team.html">팀 소개</a>
+          <a class="mobile-menu__link" href="curriculum.html">커리큘럼</a>
+          <a class="mobile-menu__link" href="game.html">게임</a>
+          <a class="mobile-menu__link is-active" href="form.html">적성검사</a>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <section>
+        <div class="result-top">
+          <span class="result-badge" id="resultBadge"></span>
+          <div class="result-title" id="resultTitle"></div>
+          <div class="score-wrap">
+            <div class="result-score" id="resultScore">0</div>
+            <div class="result-score-unit">점</div>
+          </div>
+          <div class="divider"></div>
+          <div id="resultDesc" class="result-desc"></div>
+        </div>
+        <div class="result-btns">
+          <div class="divider"></div>
+          <div class="btn-row">
+            <button class="btn-outline" id="retryBtn">다시 검사하기</button>
+            <button class="btn-black" id="captureBtn">캡처하기</button>
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="aside-section-title">추천 분야</div>
+        <div id="recList"></div>
+        <div class="aside-section-title">이런 분야도 있어요</div>
+        <div id="otherList"></div>
+      </aside>
+    </main>
+
+    <!-- 모바일 탭바 -->
+    <div class="tab-bar">
+      <button class="btn-outline" id="retryBtnMob">다시 검사하기</button>
+      <button class="btn-black" id="captureBtnMob">캡처하기</button>
+    </div>
+
+    <!-- 멘토 리포트: 화면에서는 숨기고 인쇄 시에만 표시 -->
+    <div id="mentorReport"></div>
+
+    <footer class="site-footer">
+      <p>MajorFair — 웹프로그래밍 02분반 Team 1 : HTML</p>
+    </footer>
+
+    <script src="../assets/js/common.js" defer></script>
+    <script src="../assets/js/pages/form-result.js" defer></script>
+  </body>
+</html>

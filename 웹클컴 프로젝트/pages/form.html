@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개발자 적합도 검사</title>
+    <link rel="icon" type="image/png" href="../assets/logo/symbol_color_transparent.png" />
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/components.css" />
+    <link rel="stylesheet" href="../assets/css/pages/form.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="main.html" class="site-logo" aria-label="MajorFair 홈">
+        <img class="site-logo__image" src="../assets/logo/symbol_color_transparent.png" alt="" />
+        <span class="site-logo__text">KMUCS MajorFair</span>
+      </a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <a class="site-nav__link" href="main.html">메인</a>
+        <a class="site-nav__link" href="team.html">팀 소개</a>
+        <a class="site-nav__link" href="curriculum.html">커리큘럼</a>
+        <a class="site-nav__link" href="game.html">게임</a>
+        <a class="site-nav__link is-active" href="form.html">적성검사</a>
+      </nav>
+      <button class="site-nav-toggle" id="navToggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" hidden>
+      <div class="mobile-menu">
+        <button class="mobile-menu__close" id="mobileMenuClose" type="button" aria-label="메뉴 닫기">✕</button>
+        <nav class="mobile-menu__nav">
+          <a class="mobile-menu__link" href="main.html">메인</a>
+          <a class="mobile-menu__link" href="team.html">팀 소개</a>
+          <a class="mobile-menu__link" href="curriculum.html">커리큘럼</a>
+          <a class="mobile-menu__link" href="game.html">게임</a>
+          <a class="mobile-menu__link is-active" href="form.html">적성검사</a>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <section class="quiz-start" id="quizStart">
+        <span class="quiz-start__label">Developer Fit Test</span>
+        <h1>개발자 적성검사 TEST</h1>
+        <p>짧은 질문에 답하면 웹, AI, 백엔드, 임베디드, 보안, 앱 분야 중 어떤 쪽에 흥미가 가까운지 확인할 수 있습니다.</p>
+        <div class="quiz-start__stats" aria-label="검사 안내">
+          <span>17문항</span>
+          <span>약 3분</span>
+        </div>
+        <button class="quiz-start__button" id="startQuizBtn" type="button">검사 시작하기</button>
+      </section>
+
+      <form class="quiz-inner" id="formQuiz">
+        <div class="seg-wrap">
+          <div class="seg-bar" id="segBar"></div>
+          <span class="seg-label" id="segLabel"></span>
+        </div>
+        <div class="q-text" id="qText"></div>
+        <div class="choices" id="choices"></div>
+        <div class="warning" id="warning">⚠ 선택지를 골라주세요!</div>
+      </form>
+    </main>
+
+    <div class="tab-bar">
+      <button class="btn-sec" id="prevBtn" type="button">← 이전</button>
+      <button class="btn-pri" id="nextBtn" type="submit" form="formQuiz">다음 →</button>
+    </div>
+
+    <footer class="site-footer">
+      <p>MajorFair — 웹프로그래밍 02분반 Team 1 : HTML</p>
+    </footer>
+
+    <script src="../assets/js/common.js" defer></script>
+    <script src="../assets/js/pages/form.js" defer></script>
+  </body>
+</html>

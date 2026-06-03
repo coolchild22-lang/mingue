@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team 1 : HTML — 팀 소개</title>
+<link rel="icon" type="image/png" href="../assets/logo/symbol_color_transparent.png">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/pages/team.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="main.html" class="site-logo" aria-label="MajorFair 홈">
+    <img class="site-logo__image" src="../assets/logo/symbol_color_transparent.png" alt="">
+    <span class="site-logo__text">KMUCS MajorFair</span>
+  </a>
+  <nav class="site-nav" aria-label="주요 메뉴">
+    <a class="site-nav__link" href="main.html">메인</a>
+    <a class="site-nav__link is-active" href="team.html">팀 소개</a>
+    <a class="site-nav__link" href="curriculum.html">커리큘럼</a>
+    <a class="site-nav__link" href="game.html">게임</a>
+    <a class="site-nav__link" href="form.html">적성검사</a>
+  </nav>
+  <button class="site-nav-toggle" id="navToggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" hidden>
+  <aside class="mobile-menu" aria-label="모바일 메뉴">
+    <button class="mobile-menu__close" id="mobileMenuClose" type="button" aria-label="메뉴 닫기">✕</button>
+    <nav class="mobile-menu__nav">
+      <a class="mobile-menu__link" href="main.html">메인</a>
+      <a class="mobile-menu__link is-active" href="team.html">팀 소개</a>
+      <a class="mobile-menu__link" href="curriculum.html">커리큘럼</a>
+      <a class="mobile-menu__link" href="game.html">게임</a>
+      <a class="mobile-menu__link" href="form.html">적성검사</a>
+    </nav>
+  </aside>
+</div>
+
+<section class="team-hero">
+  <div class="pill-title">팀 소개</div>
+
+  <div class="subtitle">
+    웹 클라이언트 컴퓨팅 수업에서 만나, 서비스를 만든 팀원들을 소개합니다 !
+    <strong>Team 1 HTML</strong>
+  </div>
+</section>
+
+<main class="team-grid">
+
+  <!-- 정민규 -->
+  <div class="card">
+    <div class="avatar-wrap">
+      <img src="../assets/images/team/민규.png" alt="정민규 프로필 사진">
+    </div>
+    <div class="name">정민규</div>
+    <div class="major-badge">AI 빅데이터 융합</div>
+    <a class="github-link" href="https://github.com/coolchild22-lang" target="_blank" rel="noopener noreferrer" aria-label="정민규 GitHub 열기">
+      <img src="../assets/images/team/github.png" alt="">
+    </a>
+    <ul class="member-notes">
+      <li><span>한마디</span>전공이 맞는지 고민될 때는 거창한 목표보다 자료구조, 웹, 데이터처럼 작은 분야를 하나씩 경험해보세요. 직접 만들어본 뒤에야 내 흥미가 더 선명해집니다.</li>
+      <li><span>프로젝트</span>전공 강의 시간표 추천 시스템 · 영화 리뷰 감성 분석 모델 · 캠퍼스 맛집 데이터 시각화</li>
+    </ul>
+  </div>
+
+  <!-- 우효록 -->
+  <div class="card">
+    <div class="avatar-wrap">
+      <img src="../assets/images/team/효록.png" alt="우효록 프로필 사진">
+    </div>
+    <div class="name">우효록</div>
+    <div class="major-badge">소프트웨어</div>
+    <a class="github-link" href="https://github.com/hyorok4487" target="_blank" rel="noopener noreferrer" aria-label="우효록 GitHub 열기">
+      <img src="../assets/images/team/github.png" alt="">
+    </a>
+    <ul class="member-notes">
+      <li><span>한마디</span>처음에는 모두가 어렵습니다. 중요한 건 모르는 개념을 숨기지 않고, 왜 막혔는지 기록하면서 다시 설명할 수 있을 만큼 천천히 정리하는 습관입니다.</li>
+      <li><span>프로젝트</span>온라인 투표 웹앱 · 개인 일정 관리 서비스 · 알고리즘 문제 풀이 기록장</li>
+    </ul>
+  </div>
+
+  <!-- 정원우 -->
+  <div class="card">
+    <div class="avatar-wrap">
+      <img src="../assets/images/team/원우.png" alt="정원우 프로필 사진">
+    </div>
+    <div class="name">정원우</div>
+    <div class="major-badge">소프트웨어</div>
+    <a class="github-link" href="https://github.com/prettypain" target="_blank" rel="noopener noreferrer" aria-label="정원우 GitHub 열기">
+      <img src="../assets/images/team/github.png" alt="">
+    </a>
+    <ul class="member-notes">
+      <li><span>한마디</span>CS 전공은 한 번에 잘하는 사람보다 오래 붙잡고 고쳐보는 사람이 유리합니다. 버그를 만났을 때 포기하지 않고 원인을 좁혀가는 경험을 많이 쌓아보세요.</li>
+      <li><span>프로젝트</span>2D 웹 미니게임 · TCP 채팅 프로그램 · 운영체제 스케줄러 시뮬레이터</li>
+    </ul>
+  </div>
+
+  <!-- 류진 -->
+  <div class="card">
+    <div class="avatar-wrap">
+      <img src="../assets/images/team/진.jpeg" alt="류진 프로필 사진">
+    </div>
+    <div class="name">류 진</div>
+    <div class="major-badge">소프트웨어</div>
+    <a class="github-link" href="https://github.com/plzzzean" target="_blank" rel="noopener noreferrer" aria-label="류진 GitHub 열기">
+      <img src="../assets/images/team/github.png" alt="">
+    </a>
+    <ul class="member-notes">
+      <li><span>한마디</span>개발은 혼자 하는 공부 같아 보여도 협업 능력이 정말 중요합니다. 코드만큼이나 README, 커밋 메시지, 발표 자료를 정리하는 연습을 해두면 큰 도움이 됩니다.</li>
+      <li><span>프로젝트</span>동아리 출석 관리 시스템 · 팀 프로젝트 협업 보드 · GitHub 포트폴리오 페이지</li>
+    </ul>
+  </div>
+
+  <!-- 남틀가 -->
+  <div class="card">
+    <div class="avatar-wrap">
+      <img src="../assets/images/team/툴가.png" alt="남틀가 프로필 사진">
+    </div>
+    <div class="name">남틀가</div>
+    <div class="major-badge">소프트웨어</div>
+    <span class="github-link is-disabled" aria-label="남틀가 GitHub 없음" aria-disabled="true">
+      <img src="../assets/images/team/github.png" alt="">
+    </span>
+    <ul class="member-notes">
+      <li><span>한마디</span>전공 선택이 불안하다면 결과물로 남는 작은 프로젝트를 계속 만들어보세요. 완성한 기록이 쌓이면 실력뿐 아니라 진로 판단 기준도 같이 생깁니다.</li>
+      <li><span>프로젝트</span>반응형 쇼핑몰 UI · 도서 대여 관리 프로그램 · 공공데이터 검색 웹서비스</li>
+    </ul>
+  </div>
+
+</main>
+
+
+<footer class="site-footer">
+  <p>MajorFair — 웹프로그래밍 02분반 Team 1 : HTML</p>
+</footer>
+
+<script src="../assets/js/common.js"></script>
+</body>
+</html>

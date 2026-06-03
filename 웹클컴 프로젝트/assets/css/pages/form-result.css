@@ -1,20 +1,22 @@
 main {
   flex: 1;
-  margin-top: 60px;
+  margin-top: var(--header-height);
   margin-bottom: 0;
   display: flex;
+  background: var(--color-bg);
 }
 
 /* 좌측 section */
 section {
   width: 400px;
   flex-shrink: 0;
-  border-right: 1px solid #e8e8e8;
+  border-right: 1px solid var(--color-line);
   padding: 48px 36px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
+  background: var(--color-sidebar);
 }
 .result-top {
   display: flex;
@@ -23,10 +25,10 @@ section {
 }
 .result-badge {
   display: inline-block;
-  background: #f4f4f4;
-  border: 1px solid #e0e0e0;
+  background: var(--color-primary-soft);
+  border: 1px solid rgba(0, 122, 204, 0.45);
   font-size: 13px;
-  color: #555;
+  color: #9cdcfe;
   padding: 4px 14px;
   width: fit-content;
 }
@@ -34,7 +36,7 @@ section {
   font-size: 22px;
   font-weight: 700;
   line-height: 1.4;
-  color: #191919;
+  color: var(--color-text-strong);
 }
 .score-wrap {
   display: flex;
@@ -45,17 +47,22 @@ section {
   font-size: 80px;
   font-weight: 700;
   line-height: 1;
-  color: #191919;
+  color: var(--color-accent);
 }
 .result-score-unit {
   font-size: 28px;
   font-weight: 700;
-  color: #191919;
+  color: var(--color-text);
   padding-bottom: 10px;
+}
+.result-desc {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  line-height: 1.8;
 }
 .divider {
   height: 1px;
-  background: #e8e8e8;
+  background: var(--color-line);
 }
 
 /* 좌측 하단 버튼 */
@@ -73,20 +80,22 @@ section {
 .btn-outline {
   padding: 14px;
   font-size: 14px;
-  color: #888;
-  border: 1.5px solid #e0e0e0;
-  background: #fff;
+  color: var(--color-text);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface-muted);
   cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: inherit;
+  border-radius: 0;
 }
 .btn-black {
   padding: 14px;
   font-size: 14px;
   color: #fff;
-  background: #191919;
-  border: none;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
   cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: inherit;
+  border-radius: 0;
 }
 
 /* 우측 aside */
@@ -94,10 +103,11 @@ aside {
   flex: 1;
   padding: 48px 36px;
   overflow-y: auto;
+  background: var(--color-editor);
 }
 .aside-section-title {
   font-size: 11px;
-  color: #bbb;
+  color: var(--color-text-muted);
   letter-spacing: 1px;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -109,10 +119,10 @@ aside {
 
 /* 아코디언 */
 .acc-item {
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid var(--color-line);
 }
 .acc-item:last-child {
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1px solid var(--color-line);
 }
 .acc-head {
   display: flex;
@@ -124,26 +134,26 @@ aside {
 .acc-name {
   font-size: 16px;
   font-weight: 700;
-  color: #191919;
+  color: var(--color-text-strong);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 .acc-name-c {
   font-size: 16px;
-  color: #999;
+  color: var(--color-text-muted);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 .acc-stars {
   font-size: 13px;
-  color: #f4a124;
+  color: var(--color-warning);
   letter-spacing: -1px;
 }
 .acc-chev {
   font-size: 13px;
-  color: #bbb;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 .acc-body {
@@ -155,7 +165,7 @@ aside {
 }
 .acc-desc {
   font-size: 13px;
-  color: #888;
+  color: var(--color-text-muted);
   margin-bottom: 14px;
   line-height: 1.7;
 }
@@ -170,29 +180,30 @@ aside {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--color-line);
   padding: 5px 12px;
-  background: #fff;
+  background: var(--color-surface);
   font-size: 12px;
-  color: #555;
+  color: var(--color-text);
   cursor: pointer;
   position: relative;
+  border-radius: 0;
 }
 .chip-dot {
   width: 14px;
   height: 14px;
-  border-radius: 50%;
-  border: 1.5px solid #bbb;
+  border-radius: 0;
+  border: 1px solid var(--color-line-strong);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 7px;
   font-weight: 700;
-  color: #777;
+  color: var(--color-text-muted);
   flex-shrink: 0;
 }
 .chip-lab {
-  background: #f4f4f4;
+  background: var(--color-primary-soft);
 }
 .chip-logo {
   width: 16px;
@@ -207,7 +218,7 @@ aside {
   position: absolute;
   bottom: calc(100% + 8px);
   left: 0;
-  background: #333;
+  background: #111;
   color: #fff;
   padding: 7px 10px;
   white-space: nowrap;
@@ -233,7 +244,7 @@ aside {
   margin-bottom: 2px;
 }
 .tooltip-type {
-  color: #ccc;
+  color: var(--color-text-muted);
 }
 
 /* 탭바 (모바일 전용) */
@@ -243,8 +254,8 @@ aside {
   left: 0;
   right: 0;
   height: 68px;
-  background: #fff;
-  border-top: 1px solid #e8e8e8;
+  background: var(--color-sidebar);
+  border-top: 1px solid var(--color-line);
   display: none;
   align-items: center;
   gap: 10px;
@@ -263,9 +274,10 @@ aside {
   }
 
   header,
-  .overlay,
+  .mobile-menu-overlay,
   main,
-  .tab-bar {
+  .tab-bar,
+  .site-footer {
     display: none !important;
   }
   #mentorReport {
@@ -360,7 +372,7 @@ aside {
     font-weight: 500;
   }
   .rpt-bar {
-    font-family: monospace;
+    font-family: var(--font-base);
     letter-spacing: 1px;
   }
   .rpt-score {
@@ -431,35 +443,58 @@ aside {
 @media (max-width: 768px) {
   main {
     flex-direction: column;
-    margin-top: 52px;
+    margin-top: var(--header-height);
     margin-bottom: 64px;
     overflow-y: auto;
   }
   section {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid #e8e8e8;
-    padding: 28px 20px;
+    border-bottom: 1px solid var(--color-line);
+    padding: 24px 18px;
     overflow-y: visible;
     justify-content: flex-start;
     gap: 20px;
   }
+  .result-badge,
+  .aside-section-title {
+    font-size: 12px;
+  }
   .result-score {
-    font-size: 64px;
+    font-size: 58px;
   }
   .result-title {
-    font-size: 18px;
+    font-size: 20px;
+  }
+  .result-score-unit {
+    font-size: 20px;
+  }
+  .result-desc,
+  .acc-desc {
+    font-size: 14px;
+    line-height: 1.65;
   }
   .result-btns {
     display: none;
   }
   aside {
-    padding: 24px 20px;
+    padding: 22px 18px;
     overflow-y: visible;
   }
   .acc-name,
   .acc-name-c {
-    font-size: 14px;
+    font-size: 15px;
+  }
+  .acc-stars,
+  .acc-chev,
+  .chip {
+    font-size: 12px;
+  }
+  .chip {
+    padding: 4px 9px;
+  }
+  .tooltip {
+    font-size: 12px;
   }
   .tab-bar {
     display: flex;
