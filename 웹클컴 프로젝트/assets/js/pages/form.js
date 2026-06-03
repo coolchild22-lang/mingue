@@ -421,6 +421,7 @@ function render() {
         .forEach((b) => b.classList.remove('selected'));
       btn.classList.add('selected');
       document.getElementById('warning').classList.remove('show');
+      goNext(
     });
 
     btn.addEventListener('touchstart', () => {
