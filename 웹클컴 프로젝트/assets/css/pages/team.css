@@ -37,8 +37,9 @@ body {
   margin: 0 auto;
   padding: 36px 24px 72px;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  align-items: stretch;
 }
 
 .card {
@@ -49,17 +50,35 @@ body {
   flex-direction: column;
   gap: 12px;
   min-width: 0;
+  height: 100%;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
 }
 
+.member-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.member-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
 .avatar-wrap {
-  width: 72px;
-  height: 72px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 180px;
   border: 1px solid var(--color-line);
   background: var(--color-editor);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .avatar-wrap img {
@@ -68,28 +87,52 @@ body {
   object-fit: cover;
 }
 
+.avatar-wrap img.avatar-image--top {
+  object-position: center 70%;
+}
+
 .name {
   font-size: 18px;
   font-weight: 700;
   color: var(--color-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.student-id {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.member-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .major-badge {
   width: fit-content;
+  max-width: 100%;
   background: var(--color-primary-soft);
   border: 1px solid rgba(0, 122, 204, 0.45);
   color: #9cdcfe;
   font-size: 12px;
   padding: 4px 10px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .github-link {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 7px;
+  flex: 0 0 auto;
+  padding: 5px;
   border: 1px solid var(--color-line);
   background: var(--color-editor);
   text-decoration: none;
@@ -121,32 +164,53 @@ body {
   transform: none;
 }
 
-.member-notes {
-  list-style: none;
+.member-role {
+  border-top: 1px solid var(--color-line);
+  padding-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
   color: var(--color-text-muted);
   font-size: 13px;
   line-height: 1.6;
+  min-width: 0;
 }
 
-.member-notes li {
-  border-top: 1px solid var(--color-line);
-  padding-top: 10px;
-}
-
-.member-notes span {
+.member-role span {
   display: block;
-  margin-bottom: 4px;
   color: var(--color-warning);
   font-weight: 700;
 }
 
-@media (max-width: 1080px) {
-  .team-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.role-tags em {
+  display: inline-flex;
+  max-width: 100%;
+  padding: 3px 8px;
+  border: 1px solid rgba(78, 201, 176, 0.36);
+  background: rgba(78, 201, 176, 0.08);
+  color: var(--color-text);
+  font-style: normal;
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.member-message {
+  border-left: 2px solid var(--color-primary);
+  padding-left: 9px;
+  color: var(--color-text-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
 }
 
 @media (max-width: 680px) {
@@ -171,46 +235,67 @@ body {
   .team-grid {
     grid-template-columns: 1fr;
     padding: 16px 16px 44px;
-    gap: 9px;
+    gap: 10px;
   }
 
   .card {
     padding: 12px;
+    gap: 8px;
+  }
+
+  .member-profile {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+  }
+
+  .member-heading {
     gap: 6px;
   }
 
   .avatar-wrap {
-    width: 46px;
-    height: 46px;
+    width: 58px;
+    max-height: none;
   }
 
   .name {
     font-size: 16px;
   }
 
+  .student-id,
   .major-badge {
     font-size: 12px;
-    padding: 2px 6px;
+  }
+
+  .major-badge {
+    padding: 3px 7px;
   }
 
   .github-link {
-    width: 26px;
-    height: 26px;
-    padding: 5px;
+    width: 25px;
+    height: 25px;
+    padding: 4px;
   }
 
-  .member-notes {
+  .member-role {
     gap: 6px;
     font-size: 12.5px;
     line-height: 1.6;
+    padding-top: 8px;
   }
 
-  .member-notes li {
-    padding-top: 6px;
+  .role-tags {
+    gap: 5px;
   }
 
-  .member-notes span {
-    margin-bottom: 1px;
+  .role-tags em {
+    padding: 2px 6px;
+    font-size: 11.5px;
+  }
+
+  .member-message {
+    padding-left: 7px;
     font-size: 12px;
   }
 }
