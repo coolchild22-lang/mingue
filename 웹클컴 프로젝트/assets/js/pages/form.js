@@ -497,16 +497,17 @@ function goNext() {
     current++;
     render();
   } else {
-    const unanswered = [];
-    for (let i = 0; i < total; i++) {
-      if (answers[i] === undefined) unanswered.push(i + 1);
-    }
-    if (unanswered.length > 0) {
-      alert(unanswered.join(', ') + '번 문항에 아직 답하지 않았습니다.');
-      current = unanswered[0] - 1;
-      render();
-      return;
-    }
+    warning.classList.remove('show');
+    // const unanswered = [];
+    // for (let i = 0; i < total; i++) {
+    //   if (answers[i] === undefined) unanswered.push(i + 1);
+    // }
+    // if (unanswered.length > 0) {
+    //   alert(unanswered.join(', ') + '번 문항에 아직 답하지 않았습니다.');
+    //   current = unanswered[0] - 1;
+    //   render();
+    //   return;
+    // }
 
     const result = calcScores();
     const topFields = result.fieldResult.map((f) => f.name).join(',');
