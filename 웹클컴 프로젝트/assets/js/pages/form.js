@@ -484,31 +484,27 @@ function calcScores() {
   return { totalScore, fieldResult, answerSummary };
 }
 
-function goNext() {
+function updateWarning() {
+  const warning = document.getElementById('warning');
+
   if (answers[current] === undefined) {
-    const warning = document.getElementById('warning');
+    warning.classList.add('show');
+  } else {
     warning.classList.remove('show');
-    setTimeout(() => {
-      warning.classList.add('show');
-    }, 10);
+  }
+}
+
+function goNext() {
+  updateWarning();
+
+  if (answers[current] === undefined) {
     return;
   }
+
   if (current < total - 1) {
     current++;
     render();
   } else {
-    warning.classList.remove('show');
-    // const unanswered = [];
-    // for (let i = 0; i < total; i++) {
-    //   if (answers[i] === undefined) unanswered.push(i + 1);
-    // }
-    // if (unanswered.length > 0) {
-    //   alert(unanswered.join(', ') + '번 문항에 아직 답하지 않았습니다.');
-    //   current = unanswered[0] - 1;
-    //   render();
-    //   return;
-    // }
-
     const result = calcScores();
     const topFields = result.fieldResult.map((f) => f.name).join(',');
     const fscores = result.fieldResult.map((f) => f.score).join(',');
